@@ -1,3 +1,4 @@
+import PrimaryButton from "@/components/PrimaryButton";
 import React from "react";
 
 export default function MemberTasks(): React.ReactElement {
@@ -75,9 +76,7 @@ export default function MemberTasks(): React.ReactElement {
         >
           {/* Left Section */}
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">
-              My Tasks
-            </h1>
+            <h1 className="text-4xl font-bold tracking-tight">My Tasks</h1>
 
             <p className="mt-2 text-zinc-400">
               Manage and update your assigned tasks efficiently.
@@ -161,6 +160,7 @@ export default function MemberTasks(): React.ReactElement {
             >
               Create Task
             </button>
+            <PrimaryButton title="Create Task" />
 
             {/* Logout */}
             <button
@@ -212,13 +212,9 @@ export default function MemberTasks(): React.ReactElement {
                 backdrop-blur-2xl
               "
             >
-              <p className="text-sm text-zinc-500">
-                {item.title}
-              </p>
+              <p className="text-sm text-zinc-500">{item.title}</p>
 
-              <h2 className="mt-4 text-4xl font-bold">
-                {item.value}
-              </h2>
+              <h2 className="mt-4 text-4xl font-bold">{item.value}</h2>
             </div>
           ))}
         </div>
@@ -278,13 +274,9 @@ export default function MemberTasks(): React.ReactElement {
               <div className="mt-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                 {/* Due Date */}
                 <div>
-                  <p className="text-sm text-zinc-500">
-                    Due Date
-                  </p>
+                  <p className="text-sm text-zinc-500">Due Date</p>
 
-                  <h3 className="mt-1 text-sm font-medium">
-                    {task.dueDate}
-                  </h3>
+                  <h3 className="mt-1 text-sm font-medium">{task.dueDate}</h3>
                 </div>
 
                 {/* Status Dropdown */}
@@ -314,9 +306,7 @@ export default function MemberTasks(): React.ReactElement {
                   >
                     <option value="To Do">To Do</option>
 
-                    <option value="In Progress">
-                      In Progress
-                    </option>
+                    <option value="In Progress">In Progress</option>
 
                     <option value="Done">Done</option>
                   </select>
