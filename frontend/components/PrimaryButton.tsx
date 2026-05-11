@@ -1,24 +1,24 @@
 import React from "react";
-type props = {
-  title: string;
-};
-function PrimaryButton(props: props): React.ReactElement {
+import buttonPropsType from "./types/buttonPropType";
+function PrimaryButton(props: buttonPropsType): React.ReactElement {
   return (
     <button
       className="
     rounded-2xl
-    bg-blue-500
-    px-8
-    py-4
+     bg-blue-500
+    px-4
+    py-3
     text-sm
     font-semibold
-    text-white
+     text-white
     transition-all
-    hover:bg-blue-400
-    hover:shadow-xl
+     hover:bg-blue-400
+    hover:shadow-lg
     hover:shadow-blue-500/20
     active:scale-[0.98]
+    cursor-pointer
   "
+      type={props.type}
     >
       {props.title}
     </button>

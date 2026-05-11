@@ -1,7 +1,35 @@
+import PrimaryButton from "@/components/PrimaryButton";
+import { signInService } from "@/services/authService";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 
 export default function SignIn(): React.ReactElement {
+  async function signinHandler(formData: FormData) {
+    "use server";
+    const userName = formData.get("userName") as string;
+    const userEmail = formData.get("userEmail") as string;
+    const userPassword = formData.get("userPassword") as string;
+    const userConfirmPassword = formData.get("userConfirmPassword") as string;
+    const userCheckBox = formData.get("userCheckBox") as string;
+    if (userCheckBox == "on") {
+      if (userPassword == userConfirmPassword) {
+        const data = {
+          userName,
+          userEmail,
+          userPassword,
+        };
+        const result = await signInService(data);
+        if (result.data.success) {
+          redirect("/login");
+        }
+      } else {
+        console.log("you password mismatch");
+      }
+    } else {
+      console.log("please check the checkbox");
+    }
+  }
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
       {/* Background Glow */}
@@ -38,7 +66,7 @@ export default function SignIn(): React.ReactElement {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form className="space-y-5" action={signinHandler}>
           {/* Full Name */}
           <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium text-zinc-300">
@@ -67,6 +95,8 @@ export default function SignIn(): React.ReactElement {
                 focus:ring-2
                 focus:ring-blue-500/20
               "
+              defaultValue="Uzair"
+              name="userName"
             />
           </div>
 
@@ -101,6 +131,8 @@ export default function SignIn(): React.ReactElement {
                 focus:ring-2
                 focus:ring-blue-500/20
               "
+              defaultValue="uzair@google.com"
+              name="userEmail"
             />
           </div>
 
@@ -135,6 +167,8 @@ export default function SignIn(): React.ReactElement {
                 focus:ring-2
                 focus:ring-blue-500/20
               "
+              defaultValue="1234"
+              name="userPassword"
             />
           </div>
 
@@ -169,6 +203,8 @@ export default function SignIn(): React.ReactElement {
                 focus:ring-2
                 focus:ring-blue-500/20
               "
+              defaultValue="1234"
+              name="userConfirmPassword"
             />
           </div>
 
@@ -177,6 +213,8 @@ export default function SignIn(): React.ReactElement {
             <input
               type="checkbox"
               className="mt-1 rounded border-white/20 bg-transparent"
+              name="userCheckBox"
+              defaultChecked
             />
 
             <span>
@@ -188,26 +226,7 @@ export default function SignIn(): React.ReactElement {
           </label>
 
           {/* Button */}
-          <button
-            type="submit"
-            className="
-              w-full
-              rounded-2xl
-              bg-blue-500
-              px-4
-              py-3
-              text-sm
-              font-semibold
-              text-white
-              transition-all
-              hover:bg-blue-400
-              hover:shadow-lg
-              hover:shadow-blue-500/20
-              active:scale-[0.98]
-            "
-          >
-            Create Account
-          </button>
+          <PrimaryButton title="Create Account" type="submit" />
         </form>
 
         {/* Footer */}

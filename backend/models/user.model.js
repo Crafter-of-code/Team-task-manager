@@ -20,7 +20,9 @@ const userSchema = new Schema({
     default: "member",
   },
   createAt: {
-    Date: new Date.now(),
+    type: Date,
+    default: Date.now(),
   },
 });
 const userModel = mongoose.model("Users", userSchema);
+export default userModel;

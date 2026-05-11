@@ -1,10 +1,7 @@
-import { configDotenv } from "dotenv";
-configDotenv();
 import mongoose from "mongoose";
-const connectionString = process.env.DB_CONNECTION_STRING;
-export default function dbConnection() {
+export default async function dbConnection(connectionString) {
   try {
-    mongoose.connect(connectionString).then(() => {
+    await mongoose.connect(connectionString).then(() => {
       console.log("database connected succesfully");
     });
   } catch (e) {

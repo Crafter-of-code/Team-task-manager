@@ -1,7 +1,57 @@
+// "use client";
+import PrimaryButton from "@/components/PrimaryButton";
+import { loginService } from "@/services/authService";
+// import { cookies } from "next/headers";
 import Link from "next/link";
-import React from "react";
-
+import React, { FormHTMLAttributes } from "react";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+interface resultType {
+  success: boolean;
+  message: string;
+  cookie?: {
+    _em: string;
+    _role?: string;
+  };
+  role?: "member" | "admin";
+}
 export default function Login(): React.ReactElement {
+  async function loginHandler(formData: FormData) {
+    "use server";
+    const userEmail = formData.get("userEmail") as string;
+    const userPassword = formData.get("userPassword") as string;
+    const loginData = { userEmail, userPassword };
+    let result: resultType /*| errorResponseType*/;
+    const cookie = await cookies();
+    try {
+      result = (await loginService(loginData)).data;
+      console.log(result);
+    } catch (err: any) {
+      if (err.response === undefined) {
+        result = {
+          success: false,
+          // role:""
+          message: "Server is not running",
+        };
+      } else {
+        result = err.response.data;
+        console.log(result);
+      }
+    }
+    if (result.success) {
+      cookie.set("_em", result.cookie?._em || "", { maxAge: 60 * 60 * 24 });
+      if (result.cookie?._role) {
+        cookie.set("_role", result.cookie._role || "");
+      }
+      if (result.role == "admin") {
+        redirect("/admin");
+      } else {
+        redirect("/home");
+      }
+    } else {
+      console.log(result.message);
+    }
+  }
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
       {/* Background Glow */}
@@ -35,10 +85,7 @@ export default function Login(): React.ReactElement {
             Login to continue to your task
           </p>
         </div>
-
-        {/* Form */}
-        <form className="space-y-5">
-          {/* Email */}
+        <form action={loginHandler} className="space-y-5">
           <div className="space-y-2 gap-0.5 flex flex-col">
             <label
               htmlFor="email"
@@ -69,10 +116,10 @@ export default function Login(): React.ReactElement {
                 focus:ring-2
                 focus:ring-blue-500/20
               "
+              name="userEmail"
+              defaultValue="uzair@google.com"
             />
           </div>
-
-          {/* Password */}
           <div className="space-y-2 gap-0.5 flex flex-col">
             <label
               htmlFor="password"
@@ -84,6 +131,7 @@ export default function Login(): React.ReactElement {
             <input
               id="password"
               type="password"
+              name="userPassword"
               placeholder="Enter your password"
               className="
                 w-full
@@ -103,6 +151,7 @@ export default function Login(): React.ReactElement {
                 focus:ring-2
                 focus:ring-blue-500/20
               "
+              defaultValue="1234"
             />
           </div>
 
@@ -125,26 +174,7 @@ export default function Login(): React.ReactElement {
           </div>
 
           {/* Button */}
-          <button
-            type="submit"
-            className="
-              w-full
-              rounded-2xl
-              bg-blue-500
-              px-4
-              py-3
-              text-sm
-              font-semibold
-              text-white
-              transition-all
-              hover:bg-blue-400
-              hover:shadow-lg
-              hover:shadow-blue-500/20
-              active:scale-[0.98]
-            "
-          >
-            Sign In
-          </button>
+          <PrimaryButton title="Sign In" type="submit" />
         </form>
 
         {/* Footer */}
