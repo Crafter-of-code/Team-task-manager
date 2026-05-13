@@ -9,14 +9,17 @@ function SecondaryButton(props: buttonPropsType): React.ReactElement {
                 border-white/10
                 bg-white/5
                 px-5
-                py-3
+                py-2
                 text-sm
                 text-zinc-300
                 transition
                 hover:bg-white/10
                 cursor-pointer
+                disabled:bg-white/20
               "
+      disabled={props.disabled}
       type={props.type}
+      onClick={props.onClick}
     >
       {props.title}
     </button>

@@ -17,8 +17,11 @@ function PrimaryButton(props: buttonPropsType): React.ReactElement {
     hover:shadow-blue-500/20
     active:scale-[0.98]
     cursor-pointer
+    disabled:bg-blue-200
   "
+      disabled={props.disabled}
       type={props.type}
+      onClick={props.onClick}
     >
       {props.title}
     </button>

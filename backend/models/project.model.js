@@ -12,6 +12,15 @@ const projectSchema = new Schema({
     type: [],
     require: true,
   },
+  projectStatus: {
+    type: String,
+    enum: ["Active", "Completed"],
+    default: "Active",
+  },
+  task: {
+    type: [],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: new Date.now(),

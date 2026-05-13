@@ -5,6 +5,9 @@ export type errorContextType = {
   successMessage: string;
   setSuccessStatus: React.Dispatch<React.SetStateAction<boolean>>;
   setSuccessMessage: React.Dispatch<React.SetStateAction<string>>;
+  timeOut: number;
+  setTimeOut: React.Dispatch<React.SetStateAction<number>>;
+  toastData: (status: boolean, message: string, time: number) => void;
 };
 export type authContextType = {
   userName: string;
@@ -15,6 +18,13 @@ export type authContextType = {
   setUserPassword: React.Dispatch<React.SetStateAction<string>>;
   userConfirmPassword: string;
   setUserConfirmPassword: React.Dispatch<React.SetStateAction<string>>;
+  loginHandler: () => void;
+  signinHandler: () => void;
+  loading: boolean;
+  buttonStatus: boolean;
+  checkboxValue: boolean;
+  setCheckboxValue: React.Dispatch<React.SetStateAction<boolean>>;
+  logoutHandler: () => void;
 };
 export type adminContextType = {};
 export type memberContextType = {};

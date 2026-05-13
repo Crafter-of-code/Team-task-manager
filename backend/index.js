@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/user.route.js";
 import cors from "cors";
+import adminRoute from "./routes/admin.route.js";
 const port = process.env.PORT;
 dbConnection(process.env.DB_CONNECTION_STRING);
 const app = express();
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 });
 app.use(authRouter);
 app.use(userRoute);
+app.use(adminRoute);
 app.listen(port, () => {
   console.log(`App is listening port ${port}`);
 });

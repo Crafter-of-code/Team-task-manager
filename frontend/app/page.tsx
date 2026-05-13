@@ -4,11 +4,6 @@ import React from "react";
 export default function Welcome(): React.ReactElement {
   return (
     <main className="relative flex min-h-screen overflow-hidden bg-[#09090B] text-white">
-      {/* Ambient Background */}
-      <div className="absolute left-[-10rem] top-[-10rem] h-[28rem] w-[28rem] rounded-full bg-blue-500/10 blur-3xl" />
-
-      <div className="absolute bottom-[-12rem] right-[-10rem] h-[28rem] w-[28rem] rounded-full bg-cyan-400/10 blur-3xl" />
-
       {/* Navbar */}
       <header className="absolute left-0 top-0 z-20 w-full border-b border-white/10 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
